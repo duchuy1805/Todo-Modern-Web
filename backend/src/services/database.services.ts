@@ -24,6 +24,9 @@ class DatabaseService {
     get users(): Collection<any>{
       return this.db.collection('user')
     }
+    get refresh_token(): Collection<any>{
+      return this.db.collection('refresh_token')
+    }
 }
 const databaseService= new DatabaseService()
 export default databaseService

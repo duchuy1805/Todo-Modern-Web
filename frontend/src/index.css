@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Giữ nguyên các biến HSL của bạn */
+  --background: 240 10% 98%;
+  --foreground: 215 28% 27%;
+  --card: 0 0% 100%;
+  --card-foreground: 215 28% 27%;
+  --primary: 258 89% 65%;
+  --primary-foreground: 0 0% 100%;
+  
+  /* Biến quan trọng gây lỗi */
+  --border: 214 32% 91%; 
+  --input: 210 40% 96%;
+  --ring: 258 89% 65%;
+  --radius: 0.5rem;
+}
+
+@theme {
+  /* Ánh xạ biến CSS vào class của Tailwind */
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  
+  /* Thêm các biến khác bạn đã dùng trong component */
+  --color-success: hsl(142 76% 36%);
+  --color-info: hsl(226 100% 63%);
+  --shadow-custom-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-custom-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+@layer base {
+  * {
+    /* Bây giờ Tailwind đã hiểu border-border là gì */
+    @apply border-border; 
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}

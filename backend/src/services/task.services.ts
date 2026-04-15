@@ -2,7 +2,7 @@ import databaseService from "./database.services.js"
 
 class TaskService{
     async getAllTasks(){
-        const tasks= await databaseService.tasks.find().toArray()
+        const tasks= (await databaseService.tasks.find().sort({createdAt: -1}).toArray())
         return tasks
     }
 }
