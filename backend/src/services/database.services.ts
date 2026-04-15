@@ -1,7 +1,6 @@
 import 'dotenv/config'
 import { MongoClient, Db, Collection } from 'mongodb'
 const uri= process.env.MONGODB_URI
-
 class DatabaseService {
     private client: MongoClient
     private db: Db
@@ -21,6 +20,9 @@ class DatabaseService {
   }
     get tasks(): Collection<any>{
       return this.db.collection('task')
+    }
+    get users(): Collection<any>{
+      return this.db.collection('user')
     }
 }
 const databaseService= new DatabaseService()

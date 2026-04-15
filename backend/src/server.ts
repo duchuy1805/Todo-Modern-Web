@@ -1,4 +1,4 @@
-import express, { response } from 'express'
+import express from 'express'
 import router from './routes/task.routes.js'
 import databaseService from './services/database.services.js'
 const app= express()
