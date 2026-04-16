@@ -88,3 +88,9 @@ PORT: Backend server port (Default: 5001).
 MONGODB_URI: Connection string to your MongoDB Atlas cluster.
 
 DB_NAME: The name of the database used in the project.
+### 3. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
