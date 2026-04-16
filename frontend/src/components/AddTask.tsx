@@ -46,8 +46,8 @@ const AddTask = ({ handleNewTaskAdded }: AddTaskProps) => {
         />
 
         <Button
-          variant="gradient"
-          size="xl"
+          variant="default"
+          size="lg"
           className="px-6"
           onClick={addTask}
           disabled={!newTaskTitle.trim()}

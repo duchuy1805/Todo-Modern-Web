@@ -6,12 +6,25 @@ import { Calendar, CheckCircle2, Circle, SquarePen, Trash2 } from "lucide-react"
 import { Input } from "./ui/input";
 import api from "../lib/axios";
 import { toast } from "sonner";
+interface Task {
+  _id: string;
+  title: string;
+  status: "active" | "complete" | string;
+  createdAt: string;
+  completedAt?: string;
+}
 
-const TaskCard = ({ task, index, handleTaskChanged }) => {
+interface TaskCardProps {
+  task: Task;
+  index: number;
+  handleTaskChanged: () => void;
+}
+
+const TaskCard = ({ task, index, handleTaskChanged }: TaskCardProps) => {
   const [isEditting, setIsEditting] = useState(false);
   const [updateTaskTitle, setUpdateTaskTitle] = useState(task.title || "");
 
-  const deleteTask = async (taskId) => {
+  const deleteTask = async (taskId: string) => {
     try {
       await api.delete(`/tasks/${taskId}`);
       toast.success("Nhiệm vụ đã xoá.");

@@ -1,21 +1,25 @@
-import React from "react";
-import TaskEmptyState from "./TaskEmptyState";
-import TaskCard from "./TaskCard";
 
-const TaskList = ({ filteredTasks, filter, handleTaskChanged }) => {
-  if (!filteredTasks || filteredTasks.length === 0) {
-    return <TaskEmptyState filter={filter} />;
-  }
+interface Task {
+  _id: string;
+  title: string;
+  status: "active" | "complete" | string | number; 
+  createdAt?: string;
+  completedAt?: string;
+}
 
+interface TaskListProps {
+  filteredTasks: Task[];         
+  filter: string;               
+  handleTaskChanged: () => void;
+}
+
+const TaskList = ({ filteredTasks }: TaskListProps) => {
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {filteredTasks.map((task, index) => (
-        <TaskCard
-          key={task._id ?? index}
-          task={task}
-          index={index}
-          handleTaskChanged={handleTaskChanged}
-        />
+        <div key={task._id || index}>
+            {/* ... */}
+        </div>
       ))}
     </div>
   );

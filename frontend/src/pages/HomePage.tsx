@@ -5,10 +5,13 @@ import { Header } from "@/components/Header";
 import StatsAndFilters from "@/components/StatsAndFilters";
 import TaskList from "@/components/TaskList";
 import TaskListPagination from "@/components/TaskListPagination";
-import React, { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { toast } from "sonner";
 import api from "@/lib/axios";
 import { visibleTaskLimit } from "@/lib/data";
+import { useNavigate } from "react-router-dom";
+import { LogOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 // Định nghĩa kiểu dữ liệu để TypeScript không báo lỗi 'any'
 interface Task {
@@ -27,7 +30,9 @@ const HomePage = () => {
   const [dateQuery, setDateQuery] = useState("today");
   const [page, setPage] = useState(1);
 
-  // Logic lấy dữ liệu từ Server
+  const navigate = useNavigate();
+
+
   const fetchTasks = async () => {
     try {
       const res = await api.get(`/tasks?filter=${dateQuery}`);
@@ -44,14 +49,19 @@ const HomePage = () => {
     fetchTasks();
   }, [dateQuery]);
 
-  // Reset trang về 1 khi đổi bộ lọc
   useEffect(() => {
     setPage(1);
   }, [filter, dateQuery]);
 
   const handleTaskChanged = () => fetchTasks();
 
-  // 1. Dùng useMemo để lọc danh sách (Tránh tính toán lại vô ích)
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
+
   const filteredTasks = useMemo(() => {
     return taskBuffer.filter((task) => {
       if (filter === "active") return task.status === "active";
@@ -60,17 +70,16 @@ const HomePage = () => {
     });
   }, [taskBuffer, filter]);
 
-  // 2. Tính toán tổng số trang
+
   const totalPages = Math.max(1, Math.ceil(filteredTasks.length / visibleTaskLimit));
 
-  // 3. SỬA LỖI QUAN TRỌNG: Điều chỉnh page hợp lệ sau khi render thay vì gọi trực tiếp
   useEffect(() => {
     if (page > totalPages) {
       setPage(totalPages);
     }
   }, [totalPages, page]);
 
-  // 4. Lấy danh sách task hiển thị cho trang hiện tại
+
   const visibleTasks = useMemo(() => {
     const start = (page - 1) * visibleTaskLimit;
     return filteredTasks.slice(start, start + visibleTaskLimit);
@@ -82,6 +91,16 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen w-full bg-[#fefcff] relative overflow-x-hidden">
+      {/* Nút Đăng xuất ở góc trên bên phải */}
+      <Button 
+        variant="ghost" 
+        onClick={handleLogout}
+        className="absolute top-4 right-4 z-50 text-muted-foreground hover:text-destructive transition-colors"
+      >
+        <LogOut className="w-4 h-4 mr-2" />
+        Đăng xuất
+      </Button>
+
       {/* Lớp nền hiệu ứng Glow */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"

@@ -4,5 +4,24 @@
   },
   "devDependencies": {
     "@types/node": "^25.6.0"
-  }
+  },
+  "name": "todo-web",
+  "version": "1.0.0",
+  "description": "**A high-performance, minimalist task management application designed for focus and productivity.**",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duchuy1805/Todo-Modern-Web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/duchuy1805/Todo-Modern-Web/issues"
+  },
+  "homepage": "https://github.com/duchuy1805/Todo-Modern-Web#readme"
 }

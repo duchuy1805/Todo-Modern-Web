@@ -8,14 +8,20 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
-
+interface TaskListPaginationProps {
+  handleNext: () => void;
+  handlePrev: () => void;
+  handlePageChange: (newPage: number) => void;
+  page: number;
+  totalPages: number;
+}
 const TaskListPagination = ({
   handleNext,
   handlePrev,
   handlePageChange,
   page,
   totalPages,
-}) => {
+}: TaskListPaginationProps) => {
   const generatePages = () => {
     const pages = [];
 
@@ -62,7 +68,9 @@ const TaskListPagination = ({
                 <PaginationLink
                   isActive={p === page}
                   onClick={() => {
-                    if (p !== page) handlePageChange(p);
+                    if (typeof p === 'number' && p !== page) {
+                        handlePageChange(p);
+                      }
                   }}
                   className="cursor-pointer"
                 >

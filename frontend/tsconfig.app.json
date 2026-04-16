@@ -15,10 +15,12 @@
     "noEmit": true,
     "jsx": "react-jsx",
       "baseUrl": ".",
-          "paths": {
-            "@/*": ["./src/*"]
-          }
-    ,
+      "paths": {
+      "@/*": ["./src/*"]
+      },
+    
+    /* Thêm dòng này vào để tắt báo lỗi */
+    "ignoreDeprecations": "6.0",
 
     /* Linting */
     "noUnusedLocals": true,
