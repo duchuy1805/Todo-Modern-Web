@@ -10,7 +10,7 @@ export const getAllTasks = async (req: Request, res: Response) => {
         .find({ user_id: new ObjectId(user_id) }).toArray()
 
     const activeCount = tasks.filter(t => t.status === "active").length
-    const completeCount = tasks.filter(t => t.status === "complete").length
+    const completeCount = tasks.filter(t => t.status === "completed").length
 
     res.json({ tasks, activeCount, completeCount });
 }
