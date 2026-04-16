@@ -1,3 +1,4 @@
+import type { Task } from "@/types/task"
 import React, { useState } from "react";
 import { Card } from "./ui/card";
 import { cn } from "@/lib/utils";
@@ -6,13 +7,6 @@ import { Calendar, CheckCircle2, Circle, SquarePen, Trash2 } from "lucide-react"
 import { Input } from "./ui/input";
 import api from "../lib/axios";
 import { toast } from "sonner";
-interface Task {
-  _id: string;
-  title: string;
-  status: "active" | "complete" | string;
-  createdAt: string;
-  completedAt?: string;
-}
 
 interface TaskCardProps {
   task: Task;
@@ -52,15 +46,15 @@ const TaskCard = ({ task, index, handleTaskChanged }: TaskCardProps) => {
   const toggleTaskCompleteButton = async () => {
   try {
     const isCurrentlyActive = task.status === "active";
-    const newStatus = isCurrentlyActive ? "complete" : "active";
+    const newStatus = isCurrentlyActive ? "completed" : "active";
 
     await api.put(`/tasks/${task._id}`, {
       title: task.title, 
       status: newStatus,
-      completedAt: newStatus === "complete" ? new Date().toISOString() : null,
+      completedAt: newStatus === "completed" ? new Date().toISOString() : null,
     });
 
-    toast.success(newStatus === "complete" ? "Đã hoàn thành!" : "Đã mở lại nhiệm vụ");
+    toast.success(newStatus === "completed" ? "Đã hoàn thành!" : "Đã mở lại nhiệm vụ");
     handleTaskChanged();
   } catch (error) {
     console.error("Lỗi cập nhật:", error);

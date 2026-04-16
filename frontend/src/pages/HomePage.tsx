@@ -12,15 +12,10 @@ import { visibleTaskLimit } from "@/lib/data";
 import { useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { Task } from "@/types/task"
 
 // Định nghĩa kiểu dữ liệu để TypeScript không báo lỗi 'any'
-interface Task {
-  _id: string;
-  title: string;
-  status: "active" | "complete";
-  createdAt: string;
-  completedAt?: string;
-}
+
 
 const HomePage = () => {
   const [taskBuffer, setTaskBuffer] = useState<Task[]>([]);
@@ -63,12 +58,12 @@ const HomePage = () => {
 
 
   const filteredTasks = useMemo(() => {
-    return taskBuffer.filter((task) => {
-      if (filter === "active") return task.status === "active";
-      if (filter === "completed") return task.status === "complete";
-      return true;
-    });
-  }, [taskBuffer, filter]);
+  return taskBuffer.filter((task) => {
+    if (filter === "active") return task.status === "active"
+    if (filter === "completed") return task.status === "completed"
+    return true;
+  });
+}, [taskBuffer, filter]);
 
 
   const totalPages = Math.max(1, Math.ceil(filteredTasks.length / visibleTaskLimit));

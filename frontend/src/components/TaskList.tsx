@@ -1,4 +1,4 @@
-
+import TaskCard from "./TaskCard"
 interface Task {
   _id: string;
   title: string;
@@ -13,16 +13,23 @@ interface TaskListProps {
   handleTaskChanged: () => void;
 }
 
-const TaskList = ({ filteredTasks }: TaskListProps) => {
+const TaskList = ({ filteredTasks, handleTaskChanged }: TaskListProps) => {
   return (
     <div className="space-y-4">
-      {filteredTasks.map((task, index) => (
-        <div key={task._id || index}>
-            {/* ... */}
+      {filteredTasks.length > 0 ? (
+        filteredTasks.map((task) => (
+          <TaskCard 
+            key={task._id} 
+            task={task} 
+            handleTaskChanged={handleTaskChanged} 
+          />
+        ))
+      ) : (
+        <div className="text-center py-10 text-muted-foreground">
+          Chưa có nhiệm vụ nào ở đây cả!
         </div>
-      ))}
+      )}
     </div>
   );
 };
-
 export default TaskList;
